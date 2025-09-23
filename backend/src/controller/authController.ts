@@ -19,7 +19,7 @@ export const login =  async (req:Request, res:Response) => {
     const valid = await bcrypt.compare(password, user.password);
     if(!valid) return res.status(400).json(new StandardResponse(400, 'Invalid credentials', null));
 
-    const token = jwt.sign({id:user.propertyId}, process.env.JWT_SECRET || "", {
+    const token = jwt.sign({id:user.propertyId}, process.env.JWT_SECRET || "bmxpU2FqZXVuYmVjWE1FSkpHZ1ZXY0hFSThtTzFnUHlXcVRqaG9uWTc5RDZIT1NZUXlhcm5uaWQ5Y2N1V1dJMQ==", {
         expiresIn : "1d"
     })
 
