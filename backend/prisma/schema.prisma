@@ -14,19 +14,42 @@ datasource db {
 }
 
 model ApplicationUser {
-  id       String  @id
-  username String  @unique
-  email    String  @unique
-  password String
-  tasks    Task[]
+  propertyId                 String  @id @default(uuid())
+  username           String  @unique
+  email              String  @unique
+  password           String
+  tasks              Task[]
+  gender             Gender  @relation(fields: [genderId], references: [propertyId])
+  genderId           String
+  isAccountVerified  Boolean @default(false)
+  verifiedAt         DateTime?
+  otps               Otp[]
+  createdAt          DateTime @default(now())
 }
 
 model Task {
-  id          String   @id
+  propertyId          String   @id
   title       String
   description String?
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
-  user        ApplicationUser @relation(fields: [userId], references: [id])
+  user        ApplicationUser @relation(fields: [userId], references: [propertyId])
   userId      String
+}
+
+model Gender {
+  propertyId  String @id
+  name        String @unique
+  users       ApplicationUser[]
+}
+
+model Otp {
+  propertyId        String   @id @default(uuid())
+  otp       Int
+  type      String   @default("email_verification")
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      ApplicationUser @relation(fields: [userId], references: [propertyId])
+  userId    String
 }
