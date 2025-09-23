@@ -18,6 +18,7 @@ router.use(authMiddleware);
  * @desc    Create a new task for the authenticated user
  * @access  Private
  * @body    { title: string, description: string }
+ * @returns 201 - Task created success
  */
 router.post("/", createTask);
 
@@ -27,6 +28,7 @@ router.post("/", createTask);
  * @access  Private
  * @param   id - Task propertyId (UUID)
  * @body    { title: string, description: string }
+ * @returns 201 - Task updated success
  */
 router.put("/:id", updateTask);
 
@@ -44,6 +46,7 @@ router.delete("/:id", deleteTask);
  * @access  Private
  * @query   id - Task propertyId (UUID)
  * @query   complete - Boolean (true or false)
+ * @returns 201 - Task status change success
  */
 router.patch("/change-status", changeTaskStatus);
 
@@ -55,6 +58,7 @@ router.patch("/change-status", changeTaskStatus);
  * @query   limit - Items per page (default: 10)
  * @query   search - Search keyword (matches title or description)
  * @query   isComplete - Filter by completion status (true|false)
+ * @returns 200 - Task list fetch success
  */
 router.get("/list", findAllTask);
 
@@ -63,6 +67,7 @@ router.get("/list", findAllTask);
  * @desc    Get a single task by its ID
  * @access  Private
  * @param   id - Task propertyId (UUID)
+ * @returns 200 - Task fetch success
  */
 router.get("/:id", findByTaskId);
 
