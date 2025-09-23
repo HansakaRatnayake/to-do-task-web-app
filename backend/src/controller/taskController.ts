@@ -138,5 +138,19 @@ export const changeTaskStatus = async (req: AuthRequest, res: Response) => {
 
     if (!selectedTask) return res.status(httpStatus.NOT_FOUND.status).json(new StandardResponse(404, "Task not found", null));
 
+    if (complete){
+        await prisma.task.update({
+            where:{propertyId:selectedTask.propertyId},
+            data:{completed:true}
+        });
+    }else {
+        await prisma.task.update({
+            where:{propertyId:selectedTask.propertyId},
+            data:{completed:false}
+        });
+    }
+
+    res.status(httpStatus.ok.status).json(new StandardResponse(200, "Task status change successfully", selectedTask));
+
 }
 
