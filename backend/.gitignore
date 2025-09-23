@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+
+# Optional package lock files (use one only)
+package-lock.json
+yarn.lock
+/src/generated/prisma
