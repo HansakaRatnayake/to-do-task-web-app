@@ -149,7 +149,7 @@ export const resendOtp = async (req: Request, res: Response) => {
         const otpCode = generateOTP();
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
-        const otp = await prisma.otp.create({
+        await prisma.otp.create({
             data: {
                 propertyId: uuidV4(),
                 otp: otpCode,
