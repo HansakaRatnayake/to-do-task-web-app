@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CheckCircle, Calendar, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HomePage() {
 
@@ -10,11 +11,49 @@ export default function HomePage() {
         }
     };
 
-
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden"
+        >
+            {/* Twinkling Spotlight Background */}
+            <motion.div
+                className="absolute inset-0 pointer-events-none"
+            >
+                {/* Main spotlight */}
+                <motion.div
+                    className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-indigo-300/40 via-purple-300/30 to-transparent blur-3xl"
+                    animate={{
+                        x: [0, 50, -50, 0],
+                        y: [0, -40, 40, 0],
+                        opacity: [0.4, 0.6, 0.3, 0.5],
+                    }}
+                    transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                />
+                {/* Secondary spotlight */}
+                <motion.div
+                    className="absolute right-20 bottom-20 w-[400px] h-[400px] rounded-full bg-gradient-radial from-pink-300/40 via-purple-200/30 to-transparent blur-2xl"
+                    animate={{
+                        x: [0, -30, 30, 0],
+                        y: [0, 30, -30, 0],
+                        opacity: [0.3, 0.5, 0.4, 0.6],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                />
+            </motion.div>
+
             {/* Navigation */}
-            <nav className="px-6 py-4">
+            <nav className="px-6 py-4 relative z-10">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center space-x-2">
                         <CheckCircle className="h-8 w-8 text-indigo-600" />
@@ -22,14 +61,13 @@ export default function HomePage() {
                     </div>
                     <div className="hidden md:flex space-x-8">
                         <div onClick={() => scrollToSection('#features')} className="text-gray-600 hover:text-indigo-600 transition-colors hover:cursor-pointer">Features</div>
-                        {/*<div onClick={() => scrollToSection('#about')} className="text-gray-600 hover:text-indigo-600 transition-colors">About</div>*/}
                         <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-medium transition-colors">Sign In</Link>
                     </div>
                 </div>
             </nav>
 
             {/* Hero Section */}
-            <section className="min-h-screen px-6 py-24 flex flex-col item-center justify-center">
+            <section className="min-h-screen px-6 py-24 flex flex-col item-center justify-center relative z-10">
                 <div className="max-w-7xl mx-auto text-center">
                     <div className="max-w-4xl mx-auto">
                         <h1 className="text-5xl font-bold text-gray-900 mb-8 leading-tight">
@@ -59,7 +97,7 @@ export default function HomePage() {
             </section>
 
             {/* Features Section */}
-            <section id="features" className="px-6 py-24 bg-white">
+            <section id="features" className="px-6 py-24 bg-white relative z-10">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">Everything You Need</h2>
@@ -68,7 +106,7 @@ export default function HomePage() {
                         </p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                        <div className="text-center p-8 rounded-2xl hover:shadow-lg transition-shadow">
+                        <div className="text-center p-8 rounded-lg hover:shadow-md transition-shadow">
                             <div className="w-16 h-16 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                                 <CheckCircle className="h-8 w-8 text-indigo-600" />
                             </div>
@@ -77,7 +115,7 @@ export default function HomePage() {
                                 Create, organize, and track tasks with intelligent categorization and priority management.
                             </p>
                         </div>
-                        <div className="text-center p-8 rounded-2xl hover:shadow-lg transition-shadow">
+                        <div className="text-center p-8 rounded-lg hover:shadow-md transition-shadow">
                             <div className="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                                 <Calendar className="h-8 w-8 text-emerald-600" />
                             </div>
@@ -86,7 +124,7 @@ export default function HomePage() {
                                 Visualize your tasks and deadlines with beautiful timeline and calendar views.
                             </p>
                         </div>
-                        <div className="text-center p-8 rounded-2xl hover:shadow-lg transition-shadow">
+                        <div className="text-center p-8 rrounded-lg hover:shadow-md transition-shadow">
                             <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                                 <BarChart3 className="h-8 w-8 text-purple-600" />
                             </div>
@@ -100,7 +138,7 @@ export default function HomePage() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-gray-50 px-6 py-12">
+            <footer className="bg-gray-50 px-6 py-12 relative z-10">
                 <div className="max-w-7xl mx-auto text-center">
                     <div className="flex items-center justify-center space-x-2 mb-4">
                         <CheckCircle className="h-6 w-6 text-indigo-600" />
@@ -116,11 +154,11 @@ export default function HomePage() {
                     </div>
                     <div className="mt-8 pt-8 border-t border-gray-200">
                         <p className="text-gray-500 text-sm">
-                            © 2025 TaskFlow. All rights reserved.
+                            © 2025 Hansaka Rathnayake. All rights reserved. Designed with 💜 in the digital universe
                         </p>
                     </div>
                 </div>
             </footer>
-        </div>
+        </motion.div>
     );
 }
