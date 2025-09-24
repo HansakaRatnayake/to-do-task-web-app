@@ -66,7 +66,7 @@ I already pushed the env files with testing keys (Not a good practise. Only for 
 
 ### 3. Run with Docker (Development / Fresh DB)
 
-sudo docker compose up --build
+docker compose up --build
 
 ---
 
@@ -79,13 +79,13 @@ Backend API: http://localhost:5000/api/v1
 
 ## Stop the Application
 
-sudo docker compose down
+docker compose down
 
 ---
 
 ## Stop the Application
 
-sudo docker compose down -v
+docker compose down -v
 
 ## Project Structure
 todo-task-web-app/
