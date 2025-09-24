@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, resendOtp, verifyOtp, singUp } from "../controller/authController";
+import { login, resendOtp, verifyEmail, singUp } from "../controller/authController";
 
 const router = Router();
 
@@ -22,13 +22,13 @@ router.post("/signup", singUp);
 router.post("/login", login);
 
 /**
- * @route   POST /auth/verify-otp
+ * @route   POST /auth/verify
  * @desc    Verify the OTP sent to the user’s email
  * @access  Public
  * @body    {email: string, otp: string}
  * @returns 200 - Account verified successfully
  */
-router.post("/verify-otp", verifyOtp);
+router.post("/verify", verifyEmail);
 
 /**
  * @route   POST /auth/resend-otp

@@ -6,6 +6,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { StandardResponse } from "../util/StandardResponse";
 import {generateOTP} from "../util/OtpGenerator";
 import {sendOtpMail} from "../util/mailer";
+import httpStatus from "node-http-status";
 
 const prisma = new PrismaClient();
 
@@ -23,62 +24,101 @@ export const login =  async (req:Request, res:Response) => {
         expiresIn : "1d"
     })
 
+    const gender = await prisma.gender.findUnique({ where: { propertyId: user.genderId } });
+
+    if (!gender) {
+        return res.status(httpStatus.NOT_FOUND.status).json(
+            new StandardResponse(404, "Gender not found", null)
+        );
+    }
+
     res.status(200).json(new StandardResponse(
         200,
         "Login Successful",
         {
-            token,
-            userId:user.propertyId,
-            username:user.username, email:user.email
+            token:token,
+            user:{
+                userId:user.propertyId,
+                username:user.username,
+                email:user.email,
+                gender:gender.name,
+            }
+
         })
     );
 }
 
-export const singUp = async (req:Request, res:Response) => {
-    const {username, email, password, gender} = req.body;
+export const singUp = async (req: Request, res: Response) => {
+    const { username, email, password, gender } = req.body;
 
-    //validation missing fields
-    if (!username || !email || !password || !gender) return res.status(400).json(new StandardResponse(400, "Missing required fields.", null));
+    if (!username || !email || !password || !gender)
+        return res.status(400).json(new StandardResponse(400, "Missing required fields.", null));
+
+    const existingUser = await prisma.applicationUser.findUnique({ where: { email } });
 
     const hashedPassword = await bcrypt.hash(password, 12);
+    const timeStamp = Date.now();
 
-    let user;
-    const timeStamp =  Date.now();
-    try{
-        user = await prisma.applicationUser.create({
-            data:{
-                propertyId: uuidV4(),
-                username,
-                email,
-                createdAt : new Date(timeStamp),
-                password:hashedPassword,
-                genderId:gender,
+    try {
+        let user;
 
-            },
-        })
+        if (existingUser) {
+            if (existingUser.isAccountVerified) {
+                return res.status(400).json(new StandardResponse(400, "User already exists!", null));
+            } else {
+
+                user = await prisma.applicationUser.update({
+                    where: { propertyId: existingUser.propertyId },
+                    data: {
+                        username,
+                        password: hashedPassword,
+                        genderId: gender,
+                        createdAt: new Date(timeStamp),
+                    },
+                });
+
+
+                await prisma.otp.updateMany({
+                    where: { userId: user.propertyId, isUsed: false },
+                    data: { isUsed: true },
+                });
+            }
+        } else {
+            user = await prisma.applicationUser.create({
+                data: {
+                    propertyId: uuidV4(),
+                    username,
+                    email,
+                    createdAt: new Date(timeStamp),
+                    password: hashedPassword,
+                    genderId: gender,
+                },
+            });
+        }
 
         const otpCode = generateOTP();
-        const expiresAt = timeStamp + (5 * 60 * 1000);
+        const expiresAt = new Date(timeStamp + 5 * 60 * 1000);
 
         await prisma.otp.create({
-            data:{
-                propertyId:uuidV4(),
-                createdAt:new Date(timeStamp),
-                otp:otpCode,
-                expiresAt:new Date(expiresAt),
-                userId:user.propertyId
-            }
-        })
+            data: {
+                propertyId: uuidV4(),
+                createdAt: new Date(timeStamp),
+                otp: otpCode,
+                expiresAt,
+                userId: user.propertyId,
+            },
+        });
 
         await sendOtpMail(email, otpCode);
 
-        res.status(201).json(new StandardResponse(201, "User created", null));
-    }catch(err:any){
-        res.status(400).json(new StandardResponse(400, "User already exist!", null));
+        res.status(201).json(new StandardResponse(201, "OTP sent. Please verify your email.", null));
+    } catch (err: any) {
+        res.status(500).json(new StandardResponse(500, "Server error", null));
     }
-}
+};
 
-export const verifyOtp = async (req:Request,res:Response) => {
+
+export const verifyEmail = async (req:Request,res:Response) => {
     const {email, otp} = req.body;
 
     //validation missing fields
