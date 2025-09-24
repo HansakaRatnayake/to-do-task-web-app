@@ -19,8 +19,8 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
 - [Access the Application](#access-the-application)  
 - [Stop the Application](#stop-the-application)  
 - [Project Structure](#project-structure)  
-- [Docker Notes](#docker-notes)  
-- [License](#license)  
+- [Bugs](#bugs)  
+
 
 ---
 
@@ -87,7 +87,7 @@ sudo docker compose down
 
 sudo docker compose down -v
 
-## Stop the Application
+## Project Structure
 todo-task-web-app/
 ├── backend/           # Backend Node.js + TypeScript
 │   ├── prisma/        # Prisma schema, migrations, seed
@@ -100,6 +100,16 @@ todo-task-web-app/
 │   └── Dockerfile
 ├── docker-compose.yaml
 └── README.md
+
+---
+
+## Bugs / Notes
+
+- **Reset Password:** The reset password functionality is currently **not working** due to deadline/time constraints.  
+- **Email Registration:** Only **Gmail accounts** should be used for registration because the application uses **NodeMailer with Gmail SMTP**. Other email providers may not work.  
+- **Environment Variables:** The `.env` file with testing keys is included for demonstration purposes. **Do not use these keys in production**.  
+
+
 
 
 
