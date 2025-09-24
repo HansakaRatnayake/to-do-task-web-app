@@ -5,7 +5,8 @@ import {
     deleteTask,
     changeTaskStatus,
     findAllTask,
-    findByTaskId
+    findByTaskId,
+    getTaskStats
 } from "../controller/taskController";
 import { authMiddleware } from "../middleware/authMiddleware";
 
@@ -63,6 +64,14 @@ router.patch("/change-status", changeTaskStatus);
 router.get("/list", findAllTask);
 
 /**
+ * @route   GET /tasks/stats
+ * @desc    Get task statistics (total, completed, pending) for authenticated user
+ * @access  Private
+ * @returns 200 - Task stats fetch success
+ */
+router.get("/stats", getTaskStats);
+
+/**
  * @route   GET /tasks/:id
  * @desc    Get a single task by its ID
  * @access  Private
@@ -70,5 +79,8 @@ router.get("/list", findAllTask);
  * @returns 200 - Task fetch success
  */
 router.get("/:id", findByTaskId);
+
+
+
 
 export default router;
