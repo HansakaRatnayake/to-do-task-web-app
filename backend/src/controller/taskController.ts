@@ -14,7 +14,7 @@ export const createTask = async (req: AuthRequest, res: Response) => {
     if (!title || !description) return res.status(httpStatus.BAD_REQUEST.status).json(new StandardResponse(400, "Missing required fields", null));
 
     try {
-        const task = prisma.task.create({
+        await prisma.task.create({
             data: {
                 propertyId: uuidV4(),
                 title,
@@ -104,7 +104,7 @@ export const findAllTask = async (req: AuthRequest, res: Response) => {
 
         res.status(httpStatus.ok.status).json(
             new StandardResponse(200, "Tasks fetched successfully", {
-                tasks,
+                dataList:tasks,
                 pagination: {
                     total: totalCount,
                     page: pageNumber,
@@ -154,3 +154,30 @@ export const changeTaskStatus = async (req: AuthRequest, res: Response) => {
 
 }
 
+export const getTaskStats = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.userId!;
+
+        const totalCount = await prisma.task.count({
+            where: { userId }
+        });
+
+        const completedCount = await prisma.task.count({
+            where: { userId, completed: true }
+        });
+
+        const pendingCount = totalCount - completedCount;
+
+        res.status(httpStatus.ok.status).json(
+            new StandardResponse(200, "Task stats fetched successfully", {
+                total: totalCount,
+                completed: completedCount,
+                pending: pendingCount,
+            })
+        );
+    } catch (err: any) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR.status).json(
+            new StandardResponse(500, "Internal server error", err)
+        );
+    }
+};
