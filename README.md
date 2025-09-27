@@ -72,8 +72,8 @@ docker compose up --build
 
 ## Access the Application
 
-Frontend (UI): http://localhost:5173
-Backend API: http://localhost:5000/api/v1
+Frontend (UI): http://localhost:5173  
+Backend API: http://localhost:5000/api/v1  
 
 ---
 
@@ -88,18 +88,18 @@ docker compose down
 docker compose down -v
 
 ## Project Structure
-todo-task-web-app/
-├── backend/           # Backend Node.js + TypeScript
-│   ├── prisma/        # Prisma schema, migrations, seed
-│   ├── src/           # Backend source code
-│   ├── tsconfig.json
-│   └── Dockerfile
-├── frontend/          # Frontend React + Vite
-│   ├── src/           # Frontend source code
-│   ├── tsconfig.json
-│   └── Dockerfile
-├── docker-compose.yaml
-└── README.md
+todo-task-web-app/  
+├── backend/           # Backend Node.js + TypeScript  
+│   ├── prisma/        # Prisma schema, migrations, seed  
+│   ├── src/           # Backend source code  
+│   ├── tsconfig.json  
+│   └── Dockerfile  
+├── frontend/          # Frontend React + Vite  
+│   ├── src/           # Frontend source code  
+│   ├── tsconfig.json  
+│   └── Dockerfile  
+├── docker-compose.yaml  
+└── README.md  
 
 ---
 
