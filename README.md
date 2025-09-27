@@ -57,7 +57,7 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
 
 ### 1. Clone Repository
 
-git clone [https://github.com/your-username/todo-task-web-app.git](https://github.com/HansakaRatnayake/to-do-task-web-app.git)
+git clone https://github.com/HansakaRatnayake/to-do-task-web-app.git
 cd todo-task-web-app
 
 ### 2. Environment Variables
