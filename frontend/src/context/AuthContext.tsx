@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import authService from '../services/authService.ts'
-import { useToast } from '../utils/toast/toastService.tsx';
-
+import authService from '../services/authService'
+import { useToast } from '../utils/toast/toastService'
 interface User {
     id: string;
     email: string;
@@ -66,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             const response = await authService.login({email, password});
 
-            const data = await response.data;
+            const data = response.data;
 
             if (response.status === 200) {
                 localStorage.setItem('token', data.data.token);
@@ -78,8 +77,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             }
 
         } catch (error:any) {
-            push({ title: 'Something went wrong', description: error, variant: 'error' })
-            throw new Error(error);
+            const msg = error?.response?.data?.message || error.message || "Unknown error";
+            push({ title: 'Something went wrong', description: msg, variant: 'error' });
+            throw new Error(msg);
         }
     };
 
@@ -94,8 +94,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error(data.message);
             }
         } catch (error:any) {
-            push({ title: 'Something went wrong', description: error, variant: 'error' })
-            throw new Error(error);
+            const msg = error?.response?.data?.message || error.message || "Unknown error";
+            push({ title: 'Something went wrong', description: msg, variant: 'error' });
+            throw new Error(msg);
         }
     };
 
@@ -117,8 +118,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error(data.message);
             }
         } catch (error:any) {
-            push({ title: 'Something went wrong', description: error, variant: 'error' })
-            throw new Error(error);
+            const msg = error?.response?.data?.message || error.message || "Unknown error";
+            push({ title: 'Something went wrong', description: msg, variant: 'error' });
+            throw new Error(msg);
         }
     };
 

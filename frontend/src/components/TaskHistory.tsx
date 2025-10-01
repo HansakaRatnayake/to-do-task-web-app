@@ -1,10 +1,10 @@
 import {ArrowLeft, Filter, CheckCircle, Clock, Calendar,ChevronLeft, ChevronRight} from 'lucide-react';
 import TaskCard from './TaskCard';
 import {useEffect, useState} from "react";
-import taskService from "../services/taskService.ts";
-import {useToast} from "../utils/toast/toastService.tsx";
+import taskService from "../services/taskService";
+import {useToast} from "../utils/toast/toastService";
 import ConfirmationDialog from './ConfirmationDialog';
-import EditTaskForm from "./EditTaskForm.tsx";
+import EditTaskForm from "./EditTaskForm";
 
 interface Task {
     propertyId: string;

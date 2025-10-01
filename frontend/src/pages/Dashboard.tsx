@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react';
-import {useAuth} from '../context/AuthContext.tsx';
+import {useAuth} from '../context/AuthContext';
 import {Plus, CheckCircle, Clock, Archive, User, LogOut, Calendar, Menu, X} from 'lucide-react';
-import TaskForm from '../components/TaskForm.tsx';
-import TaskCard from '../components/TaskCard.tsx';
-import TaskHistory from '../components/TaskHistory.tsx';
+import TaskForm from '../components/TaskForm';
+import TaskCard from '../components/TaskCard';
+import TaskHistory from '../components/TaskHistory';
 import taskService from '../services/taskService';
-import {useToast} from '../utils/toast/toastService.tsx';
-import EditTaskForm from '../components/EditTaskForm.tsx';
-import ConfirmationDialog from '../components/ConfirmationDialog.tsx';
+import {useToast} from '../utils/toast/toastService';
+import EditTaskForm from '../components/EditTaskForm';
+import ConfirmationDialog from '../components/ConfirmationDialog';
 
 interface Task {
     propertyId?: string;
@@ -306,7 +306,9 @@ export default function Dashboard() {
                                 <Clock className="h-6 w-6 text-indigo-600"/>
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900">{stats.pending}</h3>
+                                <h3 data-testid="pending-count" className="text-2xl font-bold text-gray-900">
+                                    {stats.pending}
+                                </h3>
                                 <p className="text-gray-600">Pending Tasks</p>
                             </div>
                         </div>
@@ -317,7 +319,10 @@ export default function Dashboard() {
                                 <CheckCircle className="h-6 w-6 text-emerald-600"/>
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900">{stats.completed}</h3>
+                                <h3 data-testid="completed-count" className="text-2xl font-bold text-gray-900">
+                                    {stats.completed}
+                                </h3>
+
                                 <p className="text-gray-600">Completed Tasks</p>
                             </div>
                         </div>
@@ -328,7 +333,9 @@ export default function Dashboard() {
                                 <Calendar className="h-6 w-6 text-purple-600"/>
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900">{stats.total}</h3>
+                                <h3 data-testid="total-count" className="text-2xl font-bold text-gray-900">
+                                    {stats.total}
+                                </h3>
                                 <p className="text-gray-600">Total Tasks</p>
                             </div>
                         </div>

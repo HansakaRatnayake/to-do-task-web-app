@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Save } from 'lucide-react';
 import taskService from '../services/taskService';
-import {useToast} from "../utils/toast/toastService.tsx";
+import {useToast} from "../utils/toast/toastService";
 
 interface Task {
     propertyId: string;
