@@ -17,7 +17,8 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
   - [Environment Variables](#2-environment-variables)  
   - [Run with Docker (Development)](#3-run-with-docker-development)  
 - [Access the Application](#access-the-application)  
-- [Stop the Application](#stop-the-application)  
+- [Stop the Application](#stop-the-application)
+- [End-To-End Testing](#end-to-end-testing)
 - [Project Structure](#project-structure)  
 - [Bugs](#bugs)  
 
@@ -57,7 +58,7 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
 
 ### 1. Clone Repository
 
-git clone [https://github.com/your-username/todo-task-web-app.git](https://github.com/HansakaRatnayake/to-do-task-web-app.git)
+git clone https://github.com/HansakaRatnayake/to-do-task-web-app.git  
 cd todo-task-web-app
 
 ### 2. Environment Variables
@@ -72,8 +73,8 @@ docker compose up --build
 
 ## Access the Application
 
-Frontend (UI): http://localhost:5173
-Backend API: http://localhost:5000/api/v1
+Frontend (UI): http://localhost:5173  
+Backend API: http://localhost:5000/api/v1  
 
 ---
 
@@ -87,19 +88,39 @@ docker compose down
 
 docker compose down -v
 
+---
+
+## End-To-End Testing
+
+You can run end-to-end tests for both frontend and backend using the preconfigured scripts.  
+
+### 1. Backend Testing
+The backend uses Jest and Supertest for testing API endpoints.  
+
+cd backend  
+npm install  
+npm run test  
+
+### 2. Frontend Testing
+The frontend uses Jest and React Testing Library.  
+
+cd frontend  
+npm install  
+npm run test  
+
 ## Project Structure
-todo-task-web-app/
-├── backend/           # Backend Node.js + TypeScript
-│   ├── prisma/        # Prisma schema, migrations, seed
-│   ├── src/           # Backend source code
-│   ├── tsconfig.json
-│   └── Dockerfile
-├── frontend/          # Frontend React + Vite
-│   ├── src/           # Frontend source code
-│   ├── tsconfig.json
-│   └── Dockerfile
-├── docker-compose.yaml
-└── README.md
+todo-task-web-app/  
+├── backend/           # Backend Node.js + TypeScript  
+│   ├── prisma/        # Prisma schema, migrations, seed  
+│   ├── src/           # Backend source code  
+│   ├── tsconfig.json  
+│   └── Dockerfile  
+├── frontend/          # Frontend React + Vite  
+│   ├── src/           # Frontend source code  
+│   ├── tsconfig.json  
+│   └── Dockerfile  
+├── docker-compose.yaml  
+└── README.md  
 
 ---
 
