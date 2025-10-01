@@ -17,7 +17,8 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
   - [Environment Variables](#2-environment-variables)  
   - [Run with Docker (Development)](#3-run-with-docker-development)  
 - [Access the Application](#access-the-application)  
-- [Stop the Application](#stop-the-application)  
+- [Stop the Application](#stop-the-application)
+- [End-To-End Testing](#end-to-end-testing)
 - [Project Structure](#project-structure)  
 - [Bugs](#bugs)  
 
@@ -86,6 +87,26 @@ docker compose down
 ## Stop the Application
 
 docker compose down -v
+
+---
+
+## End-To-End Testing
+
+You can run end-to-end tests for both frontend and backend using the preconfigured scripts.  
+
+### 1. Backend Testing
+The backend uses Jest and Supertest for testing API endpoints.  
+
+cd backend  
+npm install  
+npm run test  
+
+### 2. Frontend Testing
+The frontend uses Jest and React Testing Library.  
+
+cd frontend  
+npm install  
+npm run test  
 
 ## Project Structure
 todo-task-web-app/  
