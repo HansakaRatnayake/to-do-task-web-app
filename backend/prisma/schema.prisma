@@ -50,6 +50,6 @@ model Otp {
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
   expiresAt DateTime
-  user      ApplicationUser @relation(fields: [userId], references: [propertyId])
+  user      ApplicationUser @relation(fields: [userId], references: [propertyId], onDelete: Cascade)
   userId    String
 }

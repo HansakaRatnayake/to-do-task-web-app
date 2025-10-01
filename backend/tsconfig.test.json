@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",          // Include both src & tests
+    "outDir": "dist-test"    // Optional, not used by Jest directly
+  },
+  "include": ["src/**/*", "tests/**/*"]
+}

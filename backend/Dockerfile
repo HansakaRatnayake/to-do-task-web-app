@@ -26,4 +26,4 @@ RUN npm run build
 EXPOSE 5000
 
 # Wait for Postgres, run migrations, seed, and start the app
-CMD [ "sh", "-c", "/wait-for-it.sh db:5432 -- npx prisma generate && npx prisma migrate deploy && npx ts-node prisma/seed.ts && node dist/index.js" ]
+CMD [ "sh", "-c", "/wait-for-it.sh db:5432 -- npx prisma generate && npx prisma migrate deploy && npx ts-node prisma/seed.ts && node dist/server.js" ]
