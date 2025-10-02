@@ -10,7 +10,8 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
 ## Table of Contents
 
 - [Features](#features)  
-- [Tech Stack](#tech-stack)  
+- [Tech Stack](#tech-stack)
+- [Database EER Diagram](#database-EER-diagram)  
 - [Prerequisites](#prerequisites)  
 - [Setup & Run](#setup--run)  
   - [Clone Repository](#1-clone-repository)  
@@ -43,6 +44,13 @@ A full-stack To-Do Task management web application built with **Node.js (TypeScr
 - **MailService:**Nodemailer with gmail
 - **Frontend:** React, Vite, TypeScript, TailwindCSS
 - **Containerization:** Docker, Docker Compose  
+
+---
+
+## Database EER Diagram
+
+<img width="815" height="612" alt="image" src="https://github.com/user-attachments/assets/1647b807-f5ea-4c46-8fce-bee6941f7f86" />
+
 
 ---
 
